@@ -163,22 +163,28 @@
         .add-to-home-screen {
             display: none;
             position: fixed;
-            bottom: 0;
+            top: 0;
+            left: 0;
             width: 100%;
-            background-color: #f0f0f0;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
             padding: 10px;
             text-align: center;
-            border-top: 1px solid #ccc;
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <div class="top-bar-items">
-            <img src="assets/app-icon.png" alt="App Icon">
-            <img src="assets/item01.png" alt="Item 01">
-            <img src="assets/item02.png" alt="Item 02">
-            <img src="assets/item03.png" alt="Item 03">
+            <img src="assets/topbar-icon.png" alt="App Icon">
+            <img src="assets/topbar-item01.png" alt="Item 01">
+            <img src="assets/topbar-item02.png" alt="Item 02">
+            <img src="assets/topbar-item03.png" alt="Item 03">
             <!-- Add other items here if needed -->
         </div>
     </div>
@@ -224,7 +230,10 @@
     <script>
         // Check if the app is running as a web app
         if (!window.navigator.standalone) {
-            document.getElementById('add-to-home-screen').style.display = 'block';
+            document.getElementById('add-to-home-screen').style.display = 'flex';
+        } else {
+            // Remove the overlay when running as a web app
+            document.getElementById('add-to-home-screen').style.display = 'none';
         }
     </script>
 </body>
