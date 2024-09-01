@@ -249,11 +249,11 @@
     <div id="fullscreen-warning" class="fullscreen-warning">
         <p>For the best experience, please use this app in full screen mode.</p>
     </div>
-
     <script>
         // Function to check if the app is in full screen mode
         function checkFullScreen() {
-            if (window.navigator.standalone) { // Only check if running as a web app
+            // Ensure the script only runs when the app is a standalone web app
+            if (window.navigator.standalone) {
                 if (window.innerHeight < screen.height || window.innerWidth < screen.width) {
                     // Show the fullscreen warning if the app is not in fullscreen mode
                     document.getElementById('fullscreen-warning').style.display = 'flex';
@@ -261,6 +261,9 @@
                     // Hide the fullscreen warning if the app is in fullscreen mode
                     document.getElementById('fullscreen-warning').style.display = 'none';
                 }
+            } else {
+                // Hide the fullscreen warning if not running as a web app
+                document.getElementById('fullscreen-warning').style.display = 'none';
             }
         }
 
@@ -277,6 +280,5 @@
         // Listen for resize events to check if the app is resized out of fullscreen
         window.addEventListener('resize', checkFullScreen);
     </script>
-
 </body>
 </html>
