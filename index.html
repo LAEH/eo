@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <!-- or use .ico -->
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/apple-touch-icon-76x76.png">
+
+    <!-- Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+      <!-- Open Graph Meta Tags for Link Previews -->
+      <meta property="og:title" content="éovision">
+      <meta property="og:description" content="UI on AI">
+      <meta property="og:image" content="assets/preview-image.png">
+      <meta property="og:url" content="https://www.eovision.ai">
+      <meta property="og:type" content="website">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            justify-content: flex-start;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        .top-bar {
+            width: 100%;
+            height: 96px;
+            background-color: white;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: flex-start;
+            border: 1px solid black;
+            align-items: center;
+            z-index: 1;
+            padding-left: 20px; /* Align with the left scrollable container */
+        }
+        .top-bar-items {
+            display: flex;
+            align-items: center;
+            height: 56px;
+            background-color: white;
+            box-sizing: border-box;
+        }
+        .top-bar-items img {
+            height: 100%; /* Set image height to 100% of the container height */
+            width: auto; /* Width adjusts according to image aspect ratio */
+            margin-right: 8px; /* Space between icons */
+            flex-shrink: 0;
+        }
+        .wrapper {
+            display: flex;
+            height: calc(100vh - 96px);
+            width: calc(128px + 100vh);
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 24px;
+            z-index: 1;
+        }
+        .scrollable-container {
+            width: 128px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            height: 100%;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .viewport-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 0 24px;
+            box-sizing: border-box;
+        }
+        .viewport {
+            height: calc(100vh - 96px - 48px);
+            width: auto;
+            border-radius: 16px;
+            aspect-ratio: 1 / 1;
+            background-color: white;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+        .box {
+            width: 128px;
+            height: 128px;
+            border-radius: 8px;
+            background-color: white;
+            border: 1px solid black;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        /* Adjust box size and related elements when screen width is above 1280px */
+        @media screen and (min-width: 1281px) {
+            .scrollable-container {
+                width: 160px;
+                gap: 12px; /* Increase gap to match larger boxes */
+            }
+            .box {
+                width: 160px;
+                height: 160px;
+                border-radius: 10px;
+            }
+            .wrapper {
+                width: calc(160px + 100vh); /* Adjust wrapper width to account for larger boxes */
+            }
+            .top-bar {
+                padding-left: 20px; /* Adjust padding to align with larger scrollable container */
+            }
+        }
+
+        /* Overlay message when screen size is too small */
+        .overlay-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 1); /* Semi-transparent background */
+            color: white;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+            display: none; /* Hidden by default */
+        }
+
+        /* Show overlay when screen size is below constraints */
+        @media screen and (max-width: 1023px), screen and (max-height: 767px) {
+            .overlay-message {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-items">
+            <img src="app-icon.png" alt="App Icon">
+            <img src="item01.png" alt="Item 01">
+            <img src="item02.png" alt="Item 02">
+            <img src="item03.png" alt="Item 03">
+            <!-- Add other items here if needed -->
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="scrollable-container" id="boxes_list_left">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <div class="viewport-container">
+            <div class="viewport"></div>
+        </div>
+        <div class="scrollable-container" id="boxes_list_right">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </div>
+
+    <div class="overlay-message">
+        Your screen width needs to be at least 1024 pixels wide and 768 pixels high to view this content.
+    </div>
+</body>
+</html>
