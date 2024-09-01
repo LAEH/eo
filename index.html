@@ -131,14 +131,14 @@
             }
         }
 
-        /* Overlay message when screen size is too small */
-        .overlay-message {
+        /* Fullscreen constraint message */
+        .fullscreen-message {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 1);
+            background-color: rgba(0, 0, 0, 0.85);
             color: white;
             font-family: "Courier New", Courier, monospace;
             font-size: 24px;
@@ -150,13 +150,6 @@
             box-sizing: border-box;
             z-index: 1000;
             display: none;
-        }
-
-        /* Show overlay when screen size is below constraints */
-        @media screen and (max-width: 1023px), screen and (max-height: 767px) {
-            .overlay-message {
-                display: flex;
-            }
         }
 
         /* Add to Home Screen prompt */
@@ -218,8 +211,8 @@
         </div>
     </div>
 
-    <div class="overlay-message">
-        Your screen width needs to be at least 1024 pixels wide and 768 pixels high to view this content.
+    <div id="fullscreen-message" class="fullscreen-message">
+        For the best experience, please maximize this window to at least 95% of your screen's size.
     </div>
 
     <!-- Add to Home Screen Prompt -->
@@ -233,6 +226,21 @@
             return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
         }
 
+        // Function to check if the window is at least 95% of the screen size
+        function checkWindowSize() {
+            const screenWidth = screen.width;
+            const screenHeight = screen.height;
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            // Check if the window is at least 95% of the screen size
+            if (windowWidth < screenWidth * 0.95 || windowHeight < screenHeight * 0.95) {
+                document.getElementById('fullscreen-message').style.display = 'flex';
+            } else {
+                document.getElementById('fullscreen-message').style.display = 'none';
+            }
+        }
+
         // Initial check when the page loads
         if (!checkIfStandalone()) {
             // Display "Add to Home Screen" prompt if not running as a web app
@@ -240,7 +248,11 @@
         } else {
             // Hide the "Add to Home Screen" prompt if running as a web app
             document.getElementById('add-to-home-screen').style.display = 'none';
+            checkWindowSize(); // Also check if the window is the right size
         }
+
+          // Listen for resize events to ensure the window is always at least 95% of the screen size
+          window.addEventListener('resize', checkWindowSize);
     </script>
 </body>
 </html>
