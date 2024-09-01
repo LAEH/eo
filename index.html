@@ -6,8 +6,6 @@
 
     <!-- Favicon -->
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-    <!-- or use .ico -->
-    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
 
     <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -20,14 +18,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-      <!-- Open Graph Meta Tags for Link Previews -->
-      <meta property="og:title" content="éovision">
-      <meta property="og:description" content="UI on AI">
-      <meta property="og:image" content="assets/preview-image.png">
-      <meta property="og:url" content="https://www.eovision.ai">
-      <meta property="og:type" content="website">
-      <meta property="og:image:width" content="1200">
-      <meta property="og:image:height" content="630">
+    <!-- Open Graph Meta Tags for Link Previews -->
+    <meta property="og:title" content="éovision">
+    <meta property="og:description" content="UI on AI">
+    <meta property="og:image" content="assets/preview-image.png">
+    <meta property="og:url" content="https://www.eovision.ai">
+    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
     <style>
         body {
@@ -53,7 +51,7 @@
             border: 1px solid black;
             align-items: center;
             z-index: 1;
-            padding-left: 20px; /* Align with the left scrollable container */
+            padding-left: 20px;
         }
         .top-bar-items {
             display: flex;
@@ -63,9 +61,9 @@
             box-sizing: border-box;
         }
         .top-bar-items img {
-            height: 100%; /* Set image height to 100% of the container height */
-            width: auto; /* Width adjusts according to image aspect ratio */
-            margin-right: 8px; /* Space between icons */
+            height: 100%;
+            width: auto;
+            margin-right: 8px;
             flex-shrink: 0;
         }
         .wrapper {
@@ -118,7 +116,7 @@
         @media screen and (min-width: 1281px) {
             .scrollable-container {
                 width: 160px;
-                gap: 12px; /* Increase gap to match larger boxes */
+                gap: 12px;
             }
             .box {
                 width: 160px;
@@ -126,10 +124,10 @@
                 border-radius: 10px;
             }
             .wrapper {
-                width: calc(160px + 100vh); /* Adjust wrapper width to account for larger boxes */
+                width: calc(160px + 100vh);
             }
             .top-bar {
-                padding-left: 20px; /* Adjust padding to align with larger scrollable container */
+                padding-left: 20px;
             }
         }
 
@@ -140,7 +138,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 1); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 1);
             color: white;
             font-family: "Courier New", Courier, monospace;
             font-size: 24px;
@@ -151,7 +149,7 @@
             padding: 20px;
             box-sizing: border-box;
             z-index: 1000;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         /* Show overlay when screen size is below constraints */
@@ -160,15 +158,27 @@
                 display: flex;
             }
         }
+
+        /* Add to Home Screen prompt */
+        .add-to-home-screen {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <div class="top-bar-items">
-            <img src="app-icon.png" alt="App Icon">
-            <img src="item01.png" alt="Item 01">
-            <img src="item02.png" alt="Item 02">
-            <img src="item03.png" alt="Item 03">
+            <img src="assets/app-icon.png" alt="App Icon">
+            <img src="assets/item01.png" alt="Item 01">
+            <img src="assets/item02.png" alt="Item 02">
+            <img src="assets/item03.png" alt="Item 03">
             <!-- Add other items here if needed -->
         </div>
     </div>
@@ -205,5 +215,17 @@
     <div class="overlay-message">
         Your screen width needs to be at least 1024 pixels wide and 768 pixels high to view this content.
     </div>
+
+    <!-- Add to Home Screen Prompt -->
+    <div id="add-to-home-screen" class="add-to-home-screen">
+        <p>For a better experience, add this site to your Dock or Home Screen: tap <strong>Share</strong> and then <strong>Add to Home Screen</strong>.</p>
+    </div>
+
+    <script>
+        // Check if the app is running as a web app
+        if (!window.navigator.standalone) {
+            document.getElementById('add-to-home-screen').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
