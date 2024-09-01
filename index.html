@@ -226,17 +226,15 @@
             return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
         }
 
-        // Function to check if the window is at least 95% of the screen size
+        // Function to check if the window is at least 94.5% of the screen size
         function checkWindowSize() {
             const screenWidth = screen.width;
             const screenHeight = screen.height;
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
+            const windowWidth = Math.floor(window.innerWidth);
+            const windowHeight = Math.floor(window.innerHeight);
 
-            // Check if the window is at least 95% of the screen size
-            if (windowWidth < screenWidth * 0.95 || windowHeight < screenHeight * 0.95) {
-                document.getElementById('fullscreen-message').style.display = 'flex';
-            } else {
+            // Check if the window is at least 94.5% of the screen size
+            if (windowWidth < screenWidth * 0.945 || windowHeight < screenHeight * 0.945) {
                 document.getElementById('fullscreen-message').style.display = 'none';
             }
         }
@@ -251,8 +249,8 @@
             checkWindowSize(); // Also check if the window is the right size
         }
 
-          // Listen for resize events to ensure the window is always at least 95% of the screen size
-          window.addEventListener('resize', checkWindowSize);
+        // Listen for resize events to ensure the window is always at least 94.5% of the screen size
+        window.addEventListener('resize', checkWindowSize);
     </script>
 </body>
 </html>
