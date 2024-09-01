@@ -251,8 +251,9 @@
     </div>
 
     <script>
+        // Function to check if the app is in full screen
         function checkFullScreen() {
-            if (window.navigator.standalone) {
+            if (window.navigator.standalone) { // Check if the app is running as a web app
                 if (window.innerHeight < screen.height || window.innerWidth < screen.width) {
                     document.getElementById('fullscreen-warning').style.display = 'flex';
                 } else {
@@ -261,12 +262,14 @@
             }
         }
 
-        // Check if the app is running as a web app
+        // Initial check when the page loads
         if (!window.navigator.standalone) {
+            // Display "Add to Home Screen" prompt if not running as a web app
             document.getElementById('add-to-home-screen').style.display = 'flex';
         } else {
+            // Hide the "Add to Home Screen" prompt and check fullscreen status
             document.getElementById('add-to-home-screen').style.display = 'none';
-            checkFullScreen(); // Check fullscreen status initially
+            checkFullScreen();
         }
 
         // Listen for resize events to check if the app is resized out of fullscreen
