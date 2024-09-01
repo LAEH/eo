@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Viewer</title>
+    <title>éo</title>
 
     <!-- Favicon -->
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
@@ -228,10 +228,18 @@
     </div>
 
     <script>
+        // Function to check if the app is running as a web app
+        function checkIfStandalone() {
+            return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
+        }
+
         // Initial check when the page loads
-        if (!window.matchMedia('(display-mode: standalone)').matches && !window.navigator.standalone) {
+        if (!checkIfStandalone()) {
             // Display "Add to Home Screen" prompt if not running as a web app
             document.getElementById('add-to-home-screen').style.display = 'flex';
+        } else {
+            // Hide the "Add to Home Screen" prompt if running as a web app
+            document.getElementById('add-to-home-screen').style.display = 'none';
         }
     </script>
 </body>
