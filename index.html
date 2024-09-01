@@ -176,6 +176,24 @@
             justify-content: center;
             align-items: center;
         }
+
+        /* Not Fullscreen Warning */
+        .fullscreen-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -227,14 +245,32 @@
         <p>For a better experience, add this site to your Dock or Home Screen: tap <strong>Share</strong> and then <strong>Add to Home Screen</strong>.</p>
     </div>
 
+    <!-- Not Fullscreen Warning -->
+    <div id="fullscreen-warning" class="fullscreen-warning">
+        <p>For the best experience, please use this app in full screen mode.</p>
+    </div>
+
     <script>
+        function checkFullScreen() {
+            if (window.navigator.standalone) {
+                if (window.innerHeight < screen.height || window.innerWidth < screen.width) {
+                    document.getElementById('fullscreen-warning').style.display = 'flex';
+                } else {
+                    document.getElementById('fullscreen-warning').style.display = 'none';
+                }
+            }
+        }
+
         // Check if the app is running as a web app
         if (!window.navigator.standalone) {
             document.getElementById('add-to-home-screen').style.display = 'flex';
         } else {
-            // Remove the overlay when running as a web app
             document.getElementById('add-to-home-screen').style.display = 'none';
+            checkFullScreen(); // Check fullscreen status initially
         }
+
+        // Listen for resize events to check if the app is resized out of fullscreen
+        window.addEventListener('resize', checkFullScreen);
     </script>
 </body>
 </html>
